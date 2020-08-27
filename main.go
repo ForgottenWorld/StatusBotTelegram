@@ -24,7 +24,7 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
-	api := os.Getenv("API_URL")
+	api = os.Getenv("API_URL")
 	if len(api) == 0 {
 		log.Panic("Empty api url")
 	}
