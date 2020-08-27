@@ -59,10 +59,9 @@ func main() {
 					resp, err := http.Get(api + "/serben/" + serv)
 					if err != nil {
 						str.WriteString(serv)
-						str.WriteString(": ")
-						str.WriteString("Error (")
+						str.WriteString(": Error (")
 						str.WriteString(resp.Status)
-						str.WriteString(")")
+						str.WriteString(")\n")
 					} else {
 						b, err = ioutil.ReadAll(resp.Body)
 						resp.Body.Close()
