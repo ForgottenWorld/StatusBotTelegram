@@ -62,6 +62,10 @@ func main() {
 						str.WriteString(": Error (")
 						str.WriteString(resp.Status)
 						str.WriteString(")\n")
+					} else if resp.StatusCode == http.StatusServiceUnavailable {
+						resp.Body.Close()
+						str.WriteString(serv)
+						str.WriteString(": Offline\n")
 					} else {
 						b, err = ioutil.ReadAll(resp.Body)
 						resp.Body.Close()
