@@ -70,7 +70,7 @@ func main() {
 						str.WriteString(serv)
 						str.WriteString(": Offline\n")
 					} else {
-						b, err = ioutil.ReadAll(resp.Body)
+						b, _ = ioutil.ReadAll(resp.Body)
 						resp.Body.Close()
 						var s Server
 						json.Unmarshal(b, &s)
