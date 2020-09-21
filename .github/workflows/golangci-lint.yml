@@ -1,5 +1,5 @@
 name: golangci-lint
-on: [pull_request, push]
+on: [pull_request]
 jobs:
   golangci-lint:
     name: runner / golangci-lint
