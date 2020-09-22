@@ -91,6 +91,7 @@ func refresh() ([]byte, error) {
 	}
 
 	defer resp.Body.Close()
+
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
@@ -120,8 +121,10 @@ func status() string {
 		}
 
 		b, _ := ioutil.ReadAll(resp.Body)
+
 		var s server
 		json.Unmarshal(b, &s)
+
 		str.WriteString(serv)
 		str.WriteString(": ")
 		str.WriteString(strconv.FormatUint(uint64(s.Online), 10))
