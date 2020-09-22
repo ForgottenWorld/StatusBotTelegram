@@ -123,7 +123,11 @@ func status() string {
 		b, _ := ioutil.ReadAll(resp.Body)
 
 		var s server
-		json.Unmarshal(b, &s)
+		if err := json.Unmarshal(b, &s); err != nil {
+			str.WriteString(serv)
+			str.WriteString(": Unmarshal error")
+			continue
+		}
 
 		str.WriteString(serv)
 		str.WriteString(": ")
