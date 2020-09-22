@@ -31,7 +31,9 @@ func init() {
 		log.Panic(err)
 	}
 
-	json.Unmarshal(b, &servers)
+	if err := json.Unmarshal(b, &servers); err != nil {
+		log.Panic(err)
+	}
 }
 
 func main() {
@@ -65,8 +67,11 @@ func main() {
 			msg.Text = status()
 		case "refresh":
 			if b, err := refresh(); err == nil {
-				json.Unmarshal(b, &servers)
-				msg.Text = "Server: " + strings.Join(servers, ",")
+				if err := json.Unmarshal(b, &servers); err == nil {
+					msg.Text = "Server: " + strings.Join(servers, ",")
+				} else {
+					msg.Text = "Unmarshal error"
+				}
 			} else {
 				msg.Text = "Unable to refresh"
 			}
