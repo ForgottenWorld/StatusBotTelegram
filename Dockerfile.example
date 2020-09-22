@@ -40,6 +40,9 @@ COPY --from=builder /go/bin/tgbot /go/bin/tgbot
 
 USER appuser:appuser
 
+ENV API_URL="https://example.com"
+ENV TOKEN="token"
+
 # Command to run the executable
 ENTRYPOINT ["/go/bin/tgbot"]
 
