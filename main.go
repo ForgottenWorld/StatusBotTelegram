@@ -62,6 +62,7 @@ func main() {
 		}
 
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
+
 		switch update.Message.Command() {
 		case "status":
 			msg.Text = status()
@@ -99,6 +100,7 @@ func refresh() ([]byte, error) {
 
 func status() string {
 	var str strings.Builder
+
 	for _, serv := range servers {
 		resp, err := http.Get(api + "/serben/" + serv)
 		if err != nil {
@@ -115,7 +117,6 @@ func status() string {
 			str.WriteString(serv)
 			str.WriteString(": Offline\n")
 			continue
-
 		}
 
 		b, _ := ioutil.ReadAll(resp.Body)
