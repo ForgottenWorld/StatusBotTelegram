@@ -93,7 +93,7 @@ func refresh() ([]byte, error) {
 		return nil, err
 	}
 
-	defer resp.Body.Close()
+	defer resp.Body.Close() // nolint: errcheck
 
 	b, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
@@ -115,7 +115,7 @@ func status() string {
 			continue
 		}
 
-		defer resp.Body.Close()
+		defer resp.Body.Close() // nolint: errcheck
 
 		if resp.StatusCode == http.StatusServiceUnavailable {
 			str.WriteString(serv)
