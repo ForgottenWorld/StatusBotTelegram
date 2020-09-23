@@ -44,12 +44,12 @@ linters:
     - nestif
     - prealloc
     - testpackage
-    - wsl
 
   # don't enable:
   # - gochecknoglobals
   # - gochecknoinits
   # - noctx
+  # - wsl
 
 issues:
   exclude-use-default: false
