@@ -23,7 +23,6 @@ linters:
     - interfacer
     - lll
     - nakedret
-    - noctx
     - nolintlint
     - rowserrcheck
     - scopelint
@@ -50,6 +49,7 @@ linters:
   # don't enable:
   # - gochecknoglobals
   # - gochecknoinits
+  # - noctx
 
 issues:
   exclude-use-default: false
