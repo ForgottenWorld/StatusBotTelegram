@@ -79,7 +79,10 @@ func main() {
 		default:
 			msg.Text = "I don't know that command"
 		}
-		bot.Send(msg)
+
+		if _, err := bot.Send(msg); err != nil {
+			log.Printf("Error sending msg %s : %v", msg.Text, err)
+		}
 	}
 }
 
