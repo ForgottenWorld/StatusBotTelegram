@@ -106,7 +106,7 @@ func status() string {
 	var str strings.Builder
 
 	for _, serv := range servers {
-		resp, err := http.Get(api + "/serben/" + serv)
+		resp, err := http.Get(api + "/server/" + serv)
 		if err != nil {
 			str.WriteString(serv)
 			str.WriteString(": Error (")
