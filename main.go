@@ -138,9 +138,9 @@ func status() string {
 
 		str.WriteString(serv)
 		str.WriteString(": ")
-		str.WriteString(strconv.FormatUint(uint64(s.Online), 10))
+		str.WriteString(strconv.FormatInt(s.Online, 10))
 		str.WriteString("/")
-		str.WriteString(strconv.FormatUint(uint64(s.Max), 10))
+		str.WriteString(strconv.FormatInt(s.Max, 10))
 		str.WriteString("\n")
 	}
 
