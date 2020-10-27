@@ -42,6 +42,17 @@ func main() {
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 
+	commands := []tgbotapi.BotCommand{
+		{
+			Command:     "status",
+			Description: "Returns the server status",
+		},
+	}
+
+	if err := bot.SetMyCommands(commands); err != nil {
+		log.Panic(err)
+	}
+
 	updates, err := bot.GetUpdatesChan(u)
 	if err != nil {
 		log.Panic(err)
@@ -56,27 +67,15 @@ func main() {
 			continue
 		}
 
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
+		cmd := update.Message.Command()
 
-		switch update.Message.Command() {
-		case "status":
-			msg.Text = status()
-		case "refresh":
-			if b, err := refresh(); err == nil {
-				if err := json.Unmarshal(b, &servers); err == nil {
-					msg.Text = "Server: " + strings.Join(servers, ",")
-				} else {
-					msg.Text = "Unmarshal error"
-				}
-			} else {
-				msg.Text = "Unable to refresh"
+		if cmd == "status" {
+			msg := tgbotapi.NewMessage(update.Message.Chat.ID, status())
+			msg.ReplyToMessageID = update.Message.MessageID
+			if _, err := bot.Send(msg); err != nil {
+				log.Printf("Error sending msg %s : %v", msg.Text, err)
 			}
-		default:
-			msg.Text = "I don't know that command"
-		}
-
-		if _, err := bot.Send(msg); err != nil {
-			log.Printf("Error sending msg %s : %v", msg.Text, err)
+			continue
 		}
 	}
 }
