@@ -8,12 +8,14 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
 var api string
 var servers []string
+var lastRefresh time.Time
 
 func init() {
 	api = os.Getenv("API_URL")
@@ -70,6 +72,11 @@ func main() {
 		cmd := update.Message.Command()
 
 		if cmd == "status" {
+			elapsed := time.Since(lastRefresh)
+			if elapsed.Seconds() < 2 { //nolint: go-mnd
+				continue
+			}
+			lastRefresh = time.Now()
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, status())
 			msg.ReplyToMessageID = update.Message.MessageID
 			if _, err := bot.Send(msg); err != nil {
