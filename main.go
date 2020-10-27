@@ -12,11 +12,6 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
-type server struct {
-	Online uint `json:"online"`
-	Max    uint `json:"max"`
-}
-
 var api string
 var servers []string
 
@@ -125,7 +120,10 @@ func status() string {
 
 		b, _ := ioutil.ReadAll(resp.Body)
 
-		var s server
+		s := struct {
+			Online int64
+			Max    int64
+		}{}
 		if err := json.Unmarshal(b, &s); err != nil {
 			str.WriteString(serv)
 			str.WriteString(": Unmarshal error")
